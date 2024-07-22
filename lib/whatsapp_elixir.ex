@@ -8,7 +8,7 @@ defmodule WhatsappElixir do
 
       defp deps do
         [
-          {:whatsapp_elixir, "~> 0.1.0"}
+          {:whatsapp_elixir, git: "git@bitbucket.org:bitfactor/whatsapp_elixir.git"}
         ]
       end
 
