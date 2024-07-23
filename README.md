@@ -25,4 +25,39 @@ end
 
   """
 
+  ## Usage
+  sending whatsapp message example this only works with users with existing sessions to send message first time use templated message on user reply session will be created. 
+
+  ### messages & templated message
+
+  ```elixir
+  defmodule MyModule do
+  alias WhatsappElixir.Messages
+
+  def send_message(mobile_number) do
+   Messages.send_message(mobile_number, "Hello World")
+  end
+
+  def send_templated(mobile_number) do
+  Messages.send_template("hello_world", mobile_number, [] )
+  end
+
+ end
+ ```
+
+## Sends an image message to a WhatsApp user.
+
+Args
+  - image: Image id or link of the image
+  - recipient_id: Phone number of the user with country code without +
+  - recipient_type: Type of the recipient, either individual or group (default is "individual")
+  - caption: Caption of the image (default is "")
+  - link: Whether to send an image id or an image link, True means that the image is a link, False means that the image is an id (default is true)
+
+
+
+```elixir
+ iex> WhatsappElixir.send_image("https://i.imgur.com/Fh7XVYY.jpeg", "5511999999999")
+ 
+```
 
