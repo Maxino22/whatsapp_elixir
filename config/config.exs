@@ -3,4 +3,5 @@ import Config
 
 config :whatsapp_elixir,
   token: "",
-  phone_number_id: ""
+  phone_number_id: "",
+  verify_token: ""

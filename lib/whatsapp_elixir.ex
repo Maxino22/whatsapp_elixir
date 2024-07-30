@@ -47,24 +47,23 @@ defmodule WhatsappElixir do
   end
 
   @doc """
-  Verifies if the provided token matches the expected token in the `WhatsappElixir` struct.
+  Verifies if the provided token matches the expected token.
 
   ## Parameters
 
-  - `%WhatsappElixir{}`: The struct containing the expected token.
+  - `expected_token`: The token expected.
   - `provided_token`: The token to be verified.
 
   ## Examples
 
-      iex> instance = WhatsappElixir.new("your_token", "your_phone_number_id")
-      iex> WhatsappElixir.verify_token(instance, "your_token")
+      iex> WhatsappElixir.verify_token("expected_token", "provided_token")
       true
 
-      iex> WhatsappElixir.verify_token(instance, "wrong_token")
+      iex> WhatsappElixir.verify_token("expected_token", "wrong_token")
       false
 
   """
-  def verify_token(%WhatsappElixir{token: expected_token}, provided_token) do
+  def verify_token(expected_token, provided_token) do
     expected_token == provided_token
   end
 end
