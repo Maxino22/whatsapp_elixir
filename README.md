@@ -10,7 +10,7 @@ To use **WhatsappElixir** in your project, add it to your `mix.exs` dependencies
 ```elixir
 def deps do
   [
-    {:whatsapp_elixir, git: "git@bitbucket.org:bitfactor/whatsapp_elixir.git"}
+    {:whatsapp_elixir, "0.1.0"}
   ]
 end
 ```
