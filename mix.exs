@@ -12,43 +12,42 @@ defmodule WhatsappElixir.MixProject do
       start_permanent: Mix.env() == :prod,
       deps: deps(),
 
-        # Hex
+      # Hex
       description: "Open source Elixir wrapper for the WhatsApp Cloud API",
       package: package(),
 
-        # Docs
+      # Docs
       name: "whatsapp_elixir",
       docs: [
-          name: "whatsapp_elixir",
-          source_ref: "v#{@version}",
-          source_url: @repo_url,
-          homepage_url: @repo_url,
-          main: "readme",
-          extras: ["README.md"],
-          links: %{
-            "GitHub" => @repo_url,
-            "Sponsor" => "https://github.com/sponsors/Maxino22"
-          }
-        ]
+        name: "whatsapp_elixir",
+        source_ref: "v#{@version}",
+        source_url: @repo_url,
+        homepage_url: @repo_url,
+        main: "readme",
+        extras: ["README.md"],
+        links: %{
+          "GitHub" => @repo_url,
+          "Sponsor" => "https://github.com/sponsors/Maxino22"
+        }
       ]
-
+    ]
   end
 
   def package do
     [
-    licenses: ["MIT"],
-    # links: %{"GitHub" => "https://github.com/yourusername/whatsapp_elixir"}
+      licenses: ["MIT"],
+      links: %{
+        "GitHub" => @repo_url
+      }
     ]
   end
 
-  # Run "mix help compile.app" to learn about applications.
   def application do
     [
       extra_applications: [:logger]
     ]
   end
 
-  # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
       {:req, "~> 0.3"},
