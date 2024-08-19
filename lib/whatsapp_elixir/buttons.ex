@@ -1,5 +1,5 @@
 defmodule WhatsappElixir.Buttons do
-   @moduledoc """
+  @moduledoc """
   Module to handle sending interactive buttons to WhatsApp users.
   """
 
@@ -49,17 +49,19 @@ defmodule WhatsappElixir.Buttons do
     }
 
     Logger.info("Sending buttons to #{recipient_id}")
+
     case HTTP.post(data) do
       {:ok, response} ->
         Logger.info("Buttons sent to #{recipient_id}")
         response
+
       {:error, reason} ->
         Logger.error("Failed to send buttons to #{recipient_id}: #{inspect(reason)}")
         {:error, reason}
     end
   end
 
-   @doc """
+  @doc """
   Sends an interactive reply buttons (menu) message to a WhatsApp user.
 
   Note:
@@ -86,18 +88,15 @@ defmodule WhatsappElixir.Buttons do
     }
 
     Logger.info("Sending reply buttons to #{recipient_id}")
+
     case HTTP.post(data) do
       {:ok, response} ->
         Logger.info("Reply buttons sent to #{recipient_id}")
         response
+
       {:error, reason} ->
         Logger.error("Failed to send reply buttons to #{recipient_id}: #{inspect(reason)}")
         {:error, reason}
     end
   end
-
-
-
-
-
 end

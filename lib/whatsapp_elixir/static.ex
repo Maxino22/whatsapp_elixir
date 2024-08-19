@@ -7,11 +7,12 @@ defmodule WhatsappElixir.Static do
   Checks if the data received from the webhook is a message.
   """
   def is_message(data) do
-    data = data["entry"]
-    |> List.first()
-    |> Map.get("changes")
-    |> List.first()
-    |> Map.get("value")
+    data =
+      data["entry"]
+      |> List.first()
+      |> Map.get("changes")
+      |> List.first()
+      |> Map.get("value")
 
     Map.has_key?(data, "messages")
   end
@@ -20,11 +21,12 @@ defmodule WhatsappElixir.Static do
   Extracts the mobile number of the sender from the data received from the webhook.
   """
   def get_mobile(data) do
-    data = data["entry"]
-    |> List.first()
-    |> Map.get("changes")
-    |> List.first()
-    |> Map.get("value")
+    data =
+      data["entry"]
+      |> List.first()
+      |> Map.get("changes")
+      |> List.first()
+      |> Map.get("value")
 
     if Map.has_key?(data, "contacts") do
       data["contacts"]
@@ -39,11 +41,12 @@ defmodule WhatsappElixir.Static do
   Extracts the name of the sender from the data received from the webhook.
   """
   def get_name(data) do
-    contact = data["entry"]
-    |> List.first()
-    |> Map.get("changes")
-    |> List.first()
-    |> Map.get("value")
+    contact =
+      data["entry"]
+      |> List.first()
+      |> Map.get("changes")
+      |> List.first()
+      |> Map.get("value")
 
     if contact do
       contact["contacts"]
@@ -59,11 +62,12 @@ defmodule WhatsappElixir.Static do
   Extracts the text message of the sender from the data received from the webhook.
   """
   def get_message(data) do
-    data = data["entry"]
-    |> List.first()
-    |> Map.get("changes")
-    |> List.first()
-    |> Map.get("value")
+    data =
+      data["entry"]
+      |> List.first()
+      |> Map.get("changes")
+      |> List.first()
+      |> Map.get("value")
 
     if Map.has_key?(data, "messages") do
       data["messages"]
@@ -79,11 +83,12 @@ defmodule WhatsappElixir.Static do
   Extracts the message id of the sender from the data received from the webhook.
   """
   def get_message_id(data) do
-    data = data["entry"]
-    |> List.first()
-    |> Map.get("changes")
-    |> List.first()
-    |> Map.get("value")
+    data =
+      data["entry"]
+      |> List.first()
+      |> Map.get("changes")
+      |> List.first()
+      |> Map.get("value")
 
     if Map.has_key?(data, "messages") do
       data["messages"]
@@ -98,11 +103,12 @@ defmodule WhatsappElixir.Static do
   Extracts the timestamp of the message from the data received from the webhook.
   """
   def get_message_timestamp(data) do
-    data = data["entry"]
-    |> List.first()
-    |> Map.get("changes")
-    |> List.first()
-    |> Map.get("value")
+    data =
+      data["entry"]
+      |> List.first()
+      |> Map.get("changes")
+      |> List.first()
+      |> Map.get("value")
 
     if Map.has_key?(data, "messages") do
       data["messages"]
@@ -117,11 +123,12 @@ defmodule WhatsappElixir.Static do
   Extracts the response of the interactive message from the data received from the webhook.
   """
   def get_interactive_response(data) do
-    data = data["entry"]
-    |> List.first()
-    |> Map.get("changes")
-    |> List.first()
-    |> Map.get("value")
+    data =
+      data["entry"]
+      |> List.first()
+      |> Map.get("changes")
+      |> List.first()
+      |> Map.get("value")
 
     if Map.has_key?(data, "messages") do
       data["messages"]
@@ -136,11 +143,12 @@ defmodule WhatsappElixir.Static do
   Extracts the location of the sender from the data received from the webhook.
   """
   def get_location(data) do
-    data = data["entry"]
-    |> List.first()
-    |> Map.get("changes")
-    |> List.first()
-    |> Map.get("value")
+    data =
+      data["entry"]
+      |> List.first()
+      |> Map.get("changes")
+      |> List.first()
+      |> Map.get("value")
 
     if Map.has_key?(data, "messages") do
       data["messages"]
@@ -155,11 +163,12 @@ defmodule WhatsappElixir.Static do
   Extracts the image of the sender from the data received from the webhook.
   """
   def get_image(data) do
-    data = data["entry"]
-    |> List.first()
-    |> Map.get("changes")
-    |> List.first()
-    |> Map.get("value")
+    data =
+      data["entry"]
+      |> List.first()
+      |> Map.get("changes")
+      |> List.first()
+      |> Map.get("value")
 
     if Map.has_key?(data, "messages") do
       data["messages"]
@@ -174,11 +183,12 @@ defmodule WhatsappElixir.Static do
   Extracts the document of the sender from the data received from the webhook.
   """
   def get_document(data) do
-    data = data["entry"]
-    |> List.first()
-    |> Map.get("changes")
-    |> List.first()
-    |> Map.get("value")
+    data =
+      data["entry"]
+      |> List.first()
+      |> Map.get("changes")
+      |> List.first()
+      |> Map.get("value")
 
     if Map.has_key?(data, "messages") do
       data["messages"]
@@ -193,11 +203,12 @@ defmodule WhatsappElixir.Static do
   Extracts the audio of the sender from the data received from the webhook.
   """
   def get_audio(data) do
-    data = data["entry"]
-    |> List.first()
-    |> Map.get("changes")
-    |> List.first()
-    |> Map.get("value")
+    data =
+      data["entry"]
+      |> List.first()
+      |> Map.get("changes")
+      |> List.first()
+      |> Map.get("value")
 
     if Map.has_key?(data, "messages") do
       data["messages"]
@@ -212,11 +223,12 @@ defmodule WhatsappElixir.Static do
   Extracts the video of the sender from the data received from the webhook.
   """
   def get_video(data) do
-    data = data["entry"]
-    |> List.first()
-    |> Map.get("changes")
-    |> List.first()
-    |> Map.get("value")
+    data =
+      data["entry"]
+      |> List.first()
+      |> Map.get("changes")
+      |> List.first()
+      |> Map.get("value")
 
     if Map.has_key?(data, "messages") do
       data["messages"]
@@ -231,11 +243,12 @@ defmodule WhatsappElixir.Static do
   Gets the type of the message sent by the sender from the data received from the webhook.
   """
   def get_message_type(data) do
-    data = data["entry"]
-    |> List.first()
-    |> Map.get("changes")
-    |> List.first()
-    |> Map.get("value")
+    data =
+      data["entry"]
+      |> List.first()
+      |> Map.get("changes")
+      |> List.first()
+      |> Map.get("value")
 
     if Map.has_key?(data, "messages") do
       data["messages"]
@@ -250,11 +263,12 @@ defmodule WhatsappElixir.Static do
   Extracts the delivery status of the message from the data received from the webhook.
   """
   def get_delivery(data) do
-    data = data["entry"]
-    |> List.first()
-    |> Map.get("changes")
-    |> List.first()
-    |> Map.get("value")
+    data =
+      data["entry"]
+      |> List.first()
+      |> Map.get("changes")
+      |> List.first()
+      |> Map.get("value")
 
     if Map.has_key?(data, "statuses") do
       data["statuses"]
