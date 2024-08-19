@@ -1,43 +1,61 @@
 defmodule WhatsappElixir.HTTP do
- @moduledoc """
+  @moduledoc """
   Module to handle HTTP requests for the WhatsApp Elixir library.
   """
 
-require Logger
-alias Req.Response
+  require Logger
+  alias Req.Response
 
-@doc """
-Sends a POST request to the specified endpoint with the given body.
-"""
-def post(body) do
-  base_url = Application.get_env(:whatsapp_elixir, :base_url, "https://graph.facebook.com/v18.0")
-  phone_number_id = Application.get_env(:whatsapp_elixir, :phone_number_id)
-  url = "#{base_url}/#{phone_number_id}/messages"
+  def config() do
+    Application.get_env(:whatsapp_elixir, __MODULE__)
+  end
 
-  Req.post(url, body: Jason.encode!(body), headers: headers())
-  |> parse_response()
-end
+  def api_version(), do: config() |> Keyword.get(:api_version)
 
-defp parse_response({:ok, %Response{status: status, body: body}}) when status in 200..299 do
-  {:ok, body}
-end
+  def base_url(), do: config() |> Keyword.get(:base_url)
 
-defp parse_response({:ok, %Response{status: status, body: body}}) do
-  Logger.error("[WHATSAPP_ELIXIR] HTTP request failed with status #{status}: #{inspect(body)}")
-  {:error, body}
-end
+  @doc """
+  Sends a POST request to the specified endpoint with the given body.
+  """
+  def post(body, opts \\ []) do
+    phone_number_id =
+      Keyword.get(opts, :phone_number_id) ||
+        Application.get_env(:whatsapp_elixir, :phone_number_id) ||
+        raise ArgumentError,
+          message:
+            "You must provide a phone_number_id on the function parameter or through the #{__MODULE__} config"
 
-defp parse_response({:error, reason}) do
-  Logger.error("HTTP request failed: #{inspect(reason)}")
-  {:error, reason}
-end
+    token =
+      Keyword.get(opts, :token) ||
+        Application.get_env(:whatsapp_elixir, :token) ||
+        raise ArgumentError,
+          message:
+            "You must provide a token on the function parameter or through the #{__MODULE__} config"
 
-defp headers() do
-  token = Application.get_env(:whatsapp_elixir, :token)
+    url = "#{base_url()}/#{api_version()}" <> "/#{phone_number_id}/messages"
 
-  [
-    {"Content-Type", "application/json"},
-    {"Authorization", "Bearer #{token}"}
-  ]
-end
+    Req.post(url, body: Jason.encode!(body), headers: headers(token))
+    |> parse_response()
+  end
+
+  defp parse_response({:ok, %Response{status: status, body: body}}) when status in 200..299 do
+    {:ok, body}
+  end
+
+  defp parse_response({:ok, %Response{status: status, body: body}}) do
+    Logger.error("[WHATSAPP_ELIXIR] HTTP request failed with status #{status}: #{inspect(body)}")
+    {:error, body}
+  end
+
+  defp parse_response({:error, reason}) do
+    Logger.error("HTTP request failed: #{inspect(reason)}")
+    {:error, reason}
+  end
+
+  defp headers(token) do
+    [
+      {"Content-Type", "application/json"},
+      {"Authorization", "Bearer #{token}"}
+    ]
+  end
 end
