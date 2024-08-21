@@ -23,9 +23,7 @@ defmodule WhatsappElixir.Others do
     data =
       if recipient_id != "" do
         if Map.has_key?(data, "to") do
-          Logger.info(
-            "Recipient Id is defined in data (#{data["to"]}) and recipient_id parameter (#{recipient_id})"
-          )
+          Logger.info("Recipient Id is defined in data (#{data["to"]}) and recipient_id parameter (#{recipient_id})")
         else
           Map.put(data, "to", recipient_id)
         end
@@ -34,12 +32,10 @@ defmodule WhatsappElixir.Others do
       end
 
     Logger.info("Sending custom JSON to #{recipient_id}")
-
     case HTTP.post(data) do
       {:ok, response} ->
         Logger.info("Custom JSON sent to #{recipient_id}")
         response
-
       {:error, reason} ->
         Logger.error("Failed to send custom JSON to #{recipient_id}: #{inspect(reason)}")
         {:error, reason}
@@ -76,12 +72,10 @@ defmodule WhatsappElixir.Others do
     }
 
     Logger.info("Sending contacts to #{recipient_id}")
-
     case HTTP.post(data) do
       {:ok, response} ->
         Logger.info("Contacts sent to #{recipient_id}")
         response
-
       {:error, reason} ->
         Logger.error("Failed to send contacts to #{recipient_id}: #{inspect(reason)}")
         {:error, reason}

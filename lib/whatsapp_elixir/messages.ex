@@ -7,7 +7,11 @@ defmodule WhatsappElixir.Messages do
   alias WhatsappElixir.HTTP
   alias WhatsappElixir.Static
 
-  @doc """
+
+
+
+
+   @doc """
   Sends a template message to a WhatsApp user.
   """
   def send_template(template, recipient_id, components, lang \\ "en_US") do
@@ -36,7 +40,7 @@ defmodule WhatsappElixir.Messages do
     end
   end
 
-  @doc """
+   @doc """
   Marks a message as read.
   """
   def mark_as_read(message_id) do
@@ -56,6 +60,7 @@ defmodule WhatsappElixir.Messages do
         {:error, response}
     end
   end
+
 
   @doc """
   Replies to a message with a given text.
@@ -86,7 +91,8 @@ defmodule WhatsappElixir.Messages do
     end
   end
 
-  @doc """
+
+   @doc """
   Sends a text message.
   """
   def send_message(to, content, preview_url \\ true) do
@@ -112,6 +118,7 @@ defmodule WhatsappElixir.Messages do
     end
   end
 
+
   defp get_author(data) do
     Static.get_author(data)
   end
@@ -119,4 +126,5 @@ defmodule WhatsappElixir.Messages do
   defp get_message_id(data) do
     Static.get_message_id(data)
   end
+
 end

@@ -56,14 +56,14 @@ defmodule WhatsappElixir do
 
   ## Examples
 
-      iex> WhatsappElixir.verify_token?("expected_token", "provided_token")
+      iex> WhatsappElixir.verify_token("expected_token", "provided_token")
       true
 
-      iex> WhatsappElixir.verify_token?("expected_token", "wrong_token")
+      iex> WhatsappElixir.verify_token("expected_token", "wrong_token")
       false
 
   """
-  def verify_token?(expected_token, provided_token) do
+  def verify_token(expected_token, provided_token) do
     expected_token == provided_token
   end
 end

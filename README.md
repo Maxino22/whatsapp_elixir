@@ -19,7 +19,7 @@ end
 
   Configure your WhatsApp credentials in `config/config.exs`:
 
-      config :whatsapp_elixir, WhatsappElixir.HTTP,
+      config :whatsapp_elixir,
         token: System.get_env("WHATSAPP_TOKEN"),
         phone_number_id: System.get_env("WHATSAPP_PHONE_NUMBER_ID")
         verify_token: System.get_env("VERIFY_TOKEN")
