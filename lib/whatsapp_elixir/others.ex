@@ -19,7 +19,7 @@ defmodule WhatsappElixir.Others do
       iex> recipient_id = "5511999999999"
       iex> WhatsappElixir.Others.send_custom_json(data, recipient_id)
   """
-  def send_custom_json(data, recipient_id \\ "") do
+  def send_custom_json(data, recipient_id \\ "", custom_config \\ []) do
     data =
       if recipient_id != "" do
         if Map.has_key?(data, "to") do
@@ -32,7 +32,7 @@ defmodule WhatsappElixir.Others do
       end
 
     Logger.info("Sending custom JSON to #{recipient_id}")
-    case HTTP.post(data) do
+    case HTTP.post(data, custom_config) do
       {:ok, response} ->
         Logger.info("Custom JSON sent to #{recipient_id}")
         response
@@ -63,7 +63,7 @@ defmodule WhatsappElixir.Others do
       iex> recipient_id = "5511999999999"
       iex> WhatsappElixir.Others.send_contacts(contacts, recipient_id)
   """
-  def send_contacts(contacts, recipient_id) do
+  def send_contacts(contacts, recipient_id, custom_config \\ []) do
     data = %{
       "messaging_product" => "whatsapp",
       "to" => recipient_id,
@@ -72,7 +72,7 @@ defmodule WhatsappElixir.Others do
     }
 
     Logger.info("Sending contacts to #{recipient_id}")
-    case HTTP.post(data) do
+    case HTTP.post(data, custom_config) do
       {:ok, response} ->
         Logger.info("Contacts sent to #{recipient_id}")
         response

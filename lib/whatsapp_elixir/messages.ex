@@ -12,9 +12,29 @@ defmodule WhatsappElixir.Messages do
 
 
    @doc """
-  Sends a template message to a WhatsApp user.
+    ## Parameters
+
+    - `template`: The name of the template to be sent.
+    - `recipient_id`: The recipient's WhatsApp ID.
+    - `components`: A list of components (e.g., buttons, text) to include in the template message.
+    - `lang`: (Optional) The language code for the message. Defaults to `"en_US"`.
+    - `custom_config`: (Optional) A list of custom configuration options for the HTTP request.
+
+  ## Examples
+
+      iex> send_template("hello_world", "+2547111111111""}])
+      {:ok, %{"status" => "sent"}}
+
+      iex> send_template("welcome_template", "+2547111111111"", [], "fr_FR" , custom_configs)
+      {:ok, %{"status" => "sent"}}
+
+  ## Returns
+
+    - `{:ok, response}`: On success, returns `:ok` and the HTTP response.
+    - `{:error, response}`: On failure, returns `:error` and the HTTP response.
+
   """
-  def send_template(template, recipient_id, components, lang \\ "en_US") do
+  def send_template(template, recipient_id, components, lang \\ "en_US", custom_config \\ []) do
     data = %{
       "messaging_product" => "whatsapp",
       "to" => recipient_id,
@@ -28,7 +48,7 @@ defmodule WhatsappElixir.Messages do
 
     Logger.info("Sending template to #{recipient_id}")
 
-    case HTTP.post(data) do
+    case HTTP.post(data, custom_config) do
       {:ok, response} ->
         Logger.info("Template sent to #{recipient_id}")
         {:ok, response}
@@ -43,14 +63,14 @@ defmodule WhatsappElixir.Messages do
    @doc """
   Marks a message as read.
   """
-  def mark_as_read(message_id) do
+  def mark_as_read(message_id, custom_config \\ []) do
     payload = %{
       "messaging_product" => "whatsapp",
       "status" => "read",
       "message_id" => message_id
     }
 
-    case HTTP.post(payload) do
+    case HTTP.post(payload, custom_config) do
       {:ok, response} ->
         Logger.info("Message marked as read: #{inspect(response)}")
         {:ok, response}
@@ -65,7 +85,7 @@ defmodule WhatsappElixir.Messages do
   @doc """
   Replies to a message with a given text.
   """
-  def reply(data, reply_text \\ "", preview_url \\ true) do
+  def reply(data, reply_text \\ "", custom_config \\ [], preview_url \\ true) do
     author = get_author(data)
 
     payload = %{
@@ -79,7 +99,7 @@ defmodule WhatsappElixir.Messages do
 
     Logger.info("Replying to #{get_message_id(data)}")
 
-    case HTTP.post(payload) do
+    case HTTP.post(payload, custom_config) do
       {:ok, response} ->
         Logger.info("Message sent to #{author}")
         {:ok, response}
@@ -95,7 +115,7 @@ defmodule WhatsappElixir.Messages do
    @doc """
   Sends a text message.
   """
-  def send_message(to, content, preview_url \\ true) do
+  def send_message(to, content,  custom_config \\ [], preview_url \\ true) do
     data = %{
       "messaging_product" => "whatsapp",
       "recipient_type" => "individual",
@@ -106,7 +126,7 @@ defmodule WhatsappElixir.Messages do
 
     Logger.info("Sending message to #{to}")
 
-    case HTTP.post(data) do
+    case HTTP.post(data, custom_config) do
       {:ok, response} ->
         Logger.info("Message sent to #{to}")
         {:ok, response}

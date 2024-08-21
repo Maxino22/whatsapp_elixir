@@ -10,7 +10,7 @@ To use **WhatsappElixir** in your project, add it to your `mix.exs` dependencies
 ```elixir
 def deps do
   [
-    {:whatsapp_elixir, "0.1.0"}
+    {:whatsapp_elixir, "0.1.1"}
   ]
 end
 ```
@@ -19,12 +19,14 @@ end
 
   Configure your WhatsApp credentials in `config/config.exs`:
 
-      config :whatsapp_elixir,
+      config :whatsapp_elixir,WhatsappElixir.HTTP,
         token: System.get_env("WHATSAPP_TOKEN"),
         phone_number_id: System.get_env("WHATSAPP_PHONE_NUMBER_ID")
         verify_token: System.get_env("VERIFY_TOKEN")
 
   """
+
+  Config can be left blank if you wish to pass the config at the app.
 
   ## Usage
   sending whatsapp message example this only works with users with existing sessions to send message first time use templated message on user reply session will be created. 
@@ -61,4 +63,17 @@ Args
  iex> WhatsappElixir.send_image("https://i.imgur.com/Fh7XVYY.jpeg", "5511999999999")
  
 ```
+
+
+## Send Template Message
+```elixir
+defmodule MyModule do
+  alias WhatsappElixir.Messages
+
+  def send_templated(mobile_number) do
+    Messages.send_template("hello_world", mobile_number, [])
+  end
+end
+```
+
 

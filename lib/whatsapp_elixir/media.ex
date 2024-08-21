@@ -21,7 +21,7 @@ Sends a location message to a WhatsApp user.
     iex> WhatsappElixir.send_location("-23.564", "-46.654", "My Location", "Rua dois, 123", "5511999999999")
     {:ok, %{"success" => true}}
 """
-def send_location(lat, long, name, address, recipient_id) do
+def send_location(lat, long, name, address, recipient_id, custom_config \\ []) do
   data = %{
     messaging_product: "whatsapp",
     to: recipient_id,
@@ -35,7 +35,7 @@ def send_location(lat, long, name, address, recipient_id) do
   }
 
   Logger.info("Sending location to #{recipient_id}")
-  case HTTP.post(data) do
+  case HTTP.post(data, custom_config ) do
     {:ok, response} ->
       Logger.info("Location sent to #{recipient_id}")
       response
@@ -60,7 +60,7 @@ Sends an image message to a WhatsApp user.
     iex> WhatsappElixir.send_image("https://i.imgur.com/Fh7XVYY.jpeg", "5511999999999")
     {:ok, %{"success" => true}}
 """
-def send_image(image, recipient_id, recipient_type \\ "individual", caption \\ "", link \\ true) do
+def send_image(image, recipient_id, custom_config \\ [], recipient_type \\ "individual", caption \\ "", link \\ true) do
   data = %{
     messaging_product: "whatsapp",
     recipient_type: recipient_type,
@@ -70,7 +70,7 @@ def send_image(image, recipient_id, recipient_type \\ "individual", caption \\ "
   }
 
   Logger.info("Sending image to #{recipient_id}")
-  case HTTP.post(data) do
+  case HTTP.post(data, custom_config) do
     {:ok, response} ->
       Logger.info("Image sent to #{recipient_id}")
       response
@@ -94,7 +94,7 @@ Sends a sticker message to a WhatsApp user.
     iex> WhatsappElixir.send_sticker("170511049062862", "5511999999999", "individual", false)
     {:ok, %{"success" => true}}
 """
-def send_sticker(sticker, recipient_id, recipient_type \\ "individual", link \\ true) do
+def send_sticker(sticker, recipient_id, custom_config \\ [],  recipient_type \\ "individual", link \\ true) do
   data = %{
     messaging_product: "whatsapp",
     recipient_type: recipient_type,
@@ -104,7 +104,7 @@ def send_sticker(sticker, recipient_id, recipient_type \\ "individual", link \\ 
   }
 
   Logger.info("Sending sticker to #{recipient_id}")
-  case HTTP.post(data) do
+  case HTTP.post(data, custom_config) do
     {:ok, response} ->
       Logger.info("Sticker sent to #{recipient_id}")
       response
@@ -127,7 +127,7 @@ Sends an audio message to a WhatsApp user.
     iex> WhatsappElixir.send_audio("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", "5511999999999")
     {:ok, %{"success" => true}}
 """
-def send_audio(audio, recipient_id, link \\ true) do
+def send_audio(audio, recipient_id, custom_config \\ [],   link \\ true) do
   data = %{
     messaging_product: "whatsapp",
     to: recipient_id,
@@ -136,7 +136,7 @@ def send_audio(audio, recipient_id, link \\ true) do
   }
 
   Logger.info("Sending audio to #{recipient_id}")
-  case HTTP.post(data) do
+  case HTTP.post(data, custom_config) do
     {:ok, response} ->
       Logger.info("Audio sent to #{recipient_id}")
       response
@@ -160,7 +160,7 @@ Sends a video message to a WhatsApp user.
     iex> WhatsappElixir.send_video("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "5511999999999")
     {:ok, %{"success" => true}}
 """
-def send_video(video, recipient_id, caption \\ "", link \\ true) do
+def send_video(video, recipient_id, custom_config \\ [],  caption \\ "", link \\ true) do
   data = %{
     messaging_product: "whatsapp",
     to: recipient_id,
@@ -169,7 +169,7 @@ def send_video(video, recipient_id, caption \\ "", link \\ true) do
   }
 
   Logger.info("Sending video to #{recipient_id}")
-  case HTTP.post(data) do
+  case HTTP.post(data, custom_config) do
     {:ok, response} ->
       Logger.info("Video sent to #{recipient_id}")
       response
@@ -190,10 +190,10 @@ Sends a document message to a WhatsApp user.
 
 ## Example
 
-    iex> WhatsappElixir.send_document("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", "5511999999999")
+    iex> WhatsappElixir.Media.send_document("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", "5511999999999")
     {:ok, %{"success" => true}}
 """
-def send_document(document, recipient_id, caption \\ "", link \\ true) do
+def send_document(document, recipient_id, custom_config \\ [], caption \\ "", link \\ true) do
   data = %{
     messaging_product: "whatsapp",
     to: recipient_id,
@@ -202,7 +202,7 @@ def send_document(document, recipient_id, caption \\ "", link \\ true) do
   }
 
   Logger.info("Sending document to #{recipient_id}")
-  case HTTP.post(data) do
+  case HTTP.post(data, custom_config) do
     {:ok, response} ->
       Logger.info("Document sent to #{recipient_id}")
       response

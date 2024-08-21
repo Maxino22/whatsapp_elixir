@@ -40,7 +40,7 @@ defmodule WhatsappElixir.Buttons do
       iex> WhatsappElixir.Buttons.send_button(button, recipient_id)
 
   """
-  def send_button(button, recipient_id) do
+  def send_button(button, recipient_id, custom_config \\ []) do
     data = %{
       "messaging_product" => "whatsapp",
       "to" => recipient_id,
@@ -49,7 +49,7 @@ defmodule WhatsappElixir.Buttons do
     }
 
     Logger.info("Sending buttons to #{recipient_id}")
-    case HTTP.post(data) do
+    case HTTP.post(data, custom_config) do
       {:ok, response} ->
         Logger.info("Buttons sent to #{recipient_id}")
         response
@@ -72,7 +72,7 @@ defmodule WhatsappElixir.Buttons do
       iex> WhatsappElixir.Buttons.send_reply_button(button, recipient_id)
 
   """
-  def send_reply_button(button, recipient_id) do
+  def send_reply_button(button, recipient_id, custom_config \\ []) do
     if length(button["action"]["buttons"]) > 3 do
       raise ArgumentError, "The maximum number of buttons is 3."
     end
@@ -86,7 +86,7 @@ defmodule WhatsappElixir.Buttons do
     }
 
     Logger.info("Sending reply buttons to #{recipient_id}")
-    case HTTP.post(data) do
+    case HTTP.post(data, custom_config) do
       {:ok, response} ->
         Logger.info("Reply buttons sent to #{recipient_id}")
         response
