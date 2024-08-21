@@ -27,5 +27,3 @@ whatsapp_elixir-*.tar
 
 
 .DS_Store
-
-*.local.exs
