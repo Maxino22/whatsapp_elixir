@@ -9,7 +9,7 @@ defmodule WhatsappElixir.Messages do
 
 
 
-
+  @endpoint "messages"
 
    @doc """
     ## Parameters
@@ -48,7 +48,7 @@ defmodule WhatsappElixir.Messages do
 
     Logger.info("Sending template to #{recipient_id}")
 
-    case HTTP.post(data, custom_config) do
+    case HTTP.post(@endpoint, data, custom_config) do
       {:ok, response} ->
         Logger.info("Template sent to #{recipient_id}")
         {:ok, response}
@@ -70,7 +70,7 @@ defmodule WhatsappElixir.Messages do
       "message_id" => message_id
     }
 
-    case HTTP.post(payload, custom_config) do
+    case HTTP.post(@endpoint,payload, custom_config) do
       {:ok, response} ->
         Logger.info("Message marked as read: #{inspect(response)}")
         {:ok, response}
@@ -99,7 +99,7 @@ defmodule WhatsappElixir.Messages do
 
     Logger.info("Replying to #{get_message_id(data)}")
 
-    case HTTP.post(payload, custom_config) do
+    case HTTP.post(@endpoint, payload, custom_config) do
       {:ok, response} ->
         Logger.info("Message sent to #{author}")
         {:ok, response}
@@ -126,7 +126,7 @@ defmodule WhatsappElixir.Messages do
 
     Logger.info("Sending message to #{to}")
 
-    case HTTP.post(data, custom_config) do
+    case HTTP.post(@endpoint,data, custom_config) do
       {:ok, response} ->
         Logger.info("Message sent to #{to}")
         {:ok, response}

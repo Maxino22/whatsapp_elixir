@@ -6,6 +6,10 @@ defmodule WhatsappElixir.Media do
 require Logger
 alias WhatsappElixir.HTTP
 
+
+@endpoint "messages"
+
+
 @doc """
 Sends a location message to a WhatsApp user.
 
@@ -35,7 +39,7 @@ def send_location(lat, long, name, address, recipient_id, custom_config \\ []) d
   }
 
   Logger.info("Sending location to #{recipient_id}")
-  case HTTP.post(data, custom_config ) do
+  case HTTP.post(@endpoint, data, custom_config ) do
     {:ok, response} ->
       Logger.info("Location sent to #{recipient_id}")
       response
@@ -70,7 +74,7 @@ def send_image(image, recipient_id, custom_config \\ [], recipient_type \\ "indi
   }
 
   Logger.info("Sending image to #{recipient_id}")
-  case HTTP.post(data, custom_config) do
+  case HTTP.post(@endpoint, data, custom_config) do
     {:ok, response} ->
       Logger.info("Image sent to #{recipient_id}")
       response
@@ -104,7 +108,7 @@ def send_sticker(sticker, recipient_id, custom_config \\ [],  recipient_type \\ 
   }
 
   Logger.info("Sending sticker to #{recipient_id}")
-  case HTTP.post(data, custom_config) do
+  case HTTP.post(@endpoint, data, custom_config) do
     {:ok, response} ->
       Logger.info("Sticker sent to #{recipient_id}")
       response
@@ -136,7 +140,7 @@ def send_audio(audio, recipient_id, custom_config \\ [],   link \\ true) do
   }
 
   Logger.info("Sending audio to #{recipient_id}")
-  case HTTP.post(data, custom_config) do
+  case HTTP.post(@endpoint, data, custom_config) do
     {:ok, response} ->
       Logger.info("Audio sent to #{recipient_id}")
       response
@@ -169,7 +173,7 @@ def send_video(video, recipient_id, custom_config \\ [],  caption \\ "", link \\
   }
 
   Logger.info("Sending video to #{recipient_id}")
-  case HTTP.post(data, custom_config) do
+  case HTTP.post(@endpoint, data, custom_config) do
     {:ok, response} ->
       Logger.info("Video sent to #{recipient_id}")
       response
@@ -202,7 +206,7 @@ def send_document(document, recipient_id, custom_config \\ [], caption \\ "", li
   }
 
   Logger.info("Sending document to #{recipient_id}")
-  case HTTP.post(data, custom_config) do
+  case HTTP.post(@endpoint, data, custom_config) do
     {:ok, response} ->
       Logger.info("Document sent to #{recipient_id}")
       response

@@ -6,6 +6,8 @@ defmodule WhatsappElixir.Buttons do
   require Logger
   alias WhatsappElixir.HTTP
 
+   @endpoint "messages"
+
   defp create_button(button) do
     data = %{"type" => "list", "action" => button["action"]}
 
@@ -49,7 +51,7 @@ defmodule WhatsappElixir.Buttons do
     }
 
     Logger.info("Sending buttons to #{recipient_id}")
-    case HTTP.post(data, custom_config) do
+    case HTTP.post(@endpoint, data, custom_config) do
       {:ok, response} ->
         Logger.info("Buttons sent to #{recipient_id}")
         response
@@ -86,7 +88,7 @@ defmodule WhatsappElixir.Buttons do
     }
 
     Logger.info("Sending reply buttons to #{recipient_id}")
-    case HTTP.post(data, custom_config) do
+    case HTTP.post(@endpoint, data, custom_config) do
       {:ok, response} ->
         Logger.info("Reply buttons sent to #{recipient_id}")
         response
