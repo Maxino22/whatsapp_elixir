@@ -21,7 +21,7 @@ end
 
       config :whatsapp_elixir,WhatsappElixir.HTTP,
         token: System.get_env("WHATSAPP_TOKEN"),
-        phone_number_id: System.get_env("WHATSAPP_PHONE_NUMBER_ID")
+        phone_number_id: System.get_env("WHATSAPP_PHONE_NUMBER_ID"),
         verify_token: System.get_env("VERIFY_TOKEN")
 
   """
