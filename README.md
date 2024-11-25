@@ -10,7 +10,7 @@ To use **WhatsappElixir** in your project, add it to your `mix.exs` dependencies
 ```elixir
 def deps do
   [
-    {:whatsapp_elixir, "0.1.1"}
+    {:whatsapp_elixir, "0.1.3"}
   ]
 end
 ```
@@ -21,7 +21,7 @@ end
 
       config :whatsapp_elixir,WhatsappElixir.HTTP,
         token: System.get_env("WHATSAPP_TOKEN"),
-        phone_number_id: System.get_env("WHATSAPP_PHONE_NUMBER_ID")
+        phone_number_id: System.get_env("WHATSAPP_PHONE_NUMBER_ID"),
         verify_token: System.get_env("VERIFY_TOKEN")
 
   """

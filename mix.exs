@@ -1,7 +1,7 @@
 defmodule WhatsappElixir.MixProject do
   use Mix.Project
 
-  @version "0.1.1"
+  @version "0.1.3"
   @repo_url "https://github.com/Maxino22/whatsapp_elixir"
 
   def project do
@@ -52,6 +52,7 @@ defmodule WhatsappElixir.MixProject do
     [
       {:req, "~> 0.3"},
       {:jason, "~> 1.4"},
+      {:multipart, "~> 0.4.0"},
       {:ex_doc, "~> 0.27.0", only: :dev, runtime: false}
     ]
   end
