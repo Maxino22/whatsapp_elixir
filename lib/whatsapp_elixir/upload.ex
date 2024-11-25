@@ -39,7 +39,7 @@ defmodule WhatsappElixir.Upload do
     - `{:error, response}` on failure.
 
   ## Example:
-  ```elixir
+
   Upload.upload_media("new.png", "image/png")
   """
 
@@ -101,7 +101,7 @@ defmodule WhatsappElixir.Upload do
     - `{:error, reason}` on failure.
 
   ## Example:
-  ```elixir
+
   Upload.query_media_url("575674161631216")
   """
   def query_media(media_id, custom_configs \\ []) do
@@ -150,7 +150,7 @@ def download_media(media_url, mime_type, file_path \\ "temp", custom_config \\ [
       Logger.info("Media downloaded successfully to #{save_path}")
       {:ok, save_path}
 
- 
+
     {:error, reason} ->
       Logger.error("Failed to download media: #{inspect(reason)}")
       {:error, reason}
