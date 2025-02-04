@@ -134,8 +134,8 @@ The `media_url` expires after 5 minutes. To download the file after the URL has 
 """
 def download_media(media_url, mime_type, file_path \\ "temp", custom_config \\ []) do
   extension =
-    case String.split(mime_type, "/") do
-      [_type, ext] -> ext
+    case MIME.extensions(mime_type) do
+      [ext | _] -> ext
       _ -> raise ArgumentError, "Invalid MIME type: #{mime_type}"
     end
 
