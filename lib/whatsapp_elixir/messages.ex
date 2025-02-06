@@ -22,7 +22,7 @@ defmodule WhatsappElixir.Messages do
 
   ## Examples
 
-      iex> send_template("hello_world", "+2547111111111""}])
+      iex> send_template("hello_world", "+2547111111111")
       {:ok, %{"status" => "sent"}}
 
       iex> send_template("welcome_template", "+2547111111111"", [], "fr_FR" , custom_configs)
