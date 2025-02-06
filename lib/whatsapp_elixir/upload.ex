@@ -136,7 +136,9 @@ def download_media(media_url, mime_type, file_path \\ "temp", custom_config \\ [
   extension =
     case MIME.extensions(mime_type) do
       [ext | _] -> ext
-      _ -> raise ArgumentError, "Invalid MIME type: #{mime_type}"
+      _ ->
+        known_types = MIME.known_types() |> Map.keys() |> Enum.join(", ")
+        raise ArgumentError, "Invalid MIME type: #{mime_type}. Known MIME types: #{known_types}"
     end
 
   save_path = "#{file_path}.#{extension}"
