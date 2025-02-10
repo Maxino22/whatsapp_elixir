@@ -52,7 +52,7 @@ defmodule WhatsappElixir.Upload do
       |> Multipart.add_part(Multipart.Part.text_field(
         "whatsapp", "messaging_product"
       ))
-      |> Multipart.add_part(Multipart.Part.text_field("type", mime_type))
+      |> Multipart.add_part(Multipart.Part.text_field(mime_type, "type"))
       |>  Multipart.add_part(
         Multipart.Part.file_content_field(filename, file_content, :file, filename: filename)
       )
