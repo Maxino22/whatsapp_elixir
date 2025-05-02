@@ -72,11 +72,12 @@ Creates a new message template.
       iex> WhatsappElixir.Templates.list_templates("name,status", 10)
       {:ok, %{"data" => [%{"name" => "template1", "status" => "APPROVED"}]}}
   """
-  def list_templates(fields \\ "", limit \\ 10, custom_configs \\ []) do
+  def list_templates(fields \\ "", limit \\ nil, custom_configs \\ []) do
     params = %{
       "fields" => fields,
       "limit" => limit
     }
+    |> Enum.reject(fn {_k, v} -> is_nil(v) end)
 
     HTTP.get(@endpoint, params, custom_configs)
   end
@@ -150,7 +151,7 @@ end
       {key, value}, acc -> Map.put(acc, key, value)
     end)
 
-    
+
 
     HTTP.delete(@endpoint, params, custom_configs)
   end

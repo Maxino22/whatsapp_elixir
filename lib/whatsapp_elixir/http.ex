@@ -36,8 +36,6 @@ defmodule WhatsappElixir.HTTP do
   def post(endpoint, body, opts \\ [], include_phone_number_id \\ true, content_type \\ "application/json") do
     config_opts = config(opts)
 
-
-
     # Get phone_number_id if needed
      phone_number_id = if include_phone_number_id do
         config(config_opts) |> Keyword.get(:phone_number_id)
@@ -69,7 +67,7 @@ defmodule WhatsappElixir.HTTP do
 
       case Req.post(url, body: body, headers: headers(token, content_type)) do
         {:ok, %Response{status: status, body: body}} when status in 200..299 ->
-          {:ok, body}
+          {:ok, Jason.decode!(body)}
 
         {:ok, %Response{status: status, body: body}} ->
           Logger.error("[WHATSAPP_ELIXIR] HTTP request failed with status #{status}: #{inspect(body)}")
@@ -83,7 +81,7 @@ defmodule WhatsappElixir.HTTP do
     else
       case Req.post(url, body: Jason.encode!(body), headers: headers(token, content_type)) do
         {:ok, %Response{status: status, body: body}} when status in 200..299 ->
-          {:ok, body}
+          {:ok, Jason.decode!(body)}
 
         {:ok, %Response{status: status, body: body}} ->
           Logger.error("[WHATSAPP_ELIXIR] HTTP request failed with status #{status}: #{inspect(body)}")
@@ -171,7 +169,7 @@ defmodule WhatsappElixir.HTTP do
 
     case Req.get(url, headers: full_headers) do
       {:ok, %Response{status: status, body: body}} when status in 200..299 ->
-        {:ok, body}
+        {:ok, Jason.decode!(body)}
 
       {:ok, %Response{status: status, body: body}} ->
         Logger.error("HTTP GET request failed with status #{status}: #{inspect(body)}")
