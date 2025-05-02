@@ -191,18 +191,19 @@ Sends a document message to a WhatsApp user.
   - recipient_id: Phone number of the user with country code without +
   - caption: Caption of the document (default is "")
   - link: Whether to send a document id or a document link, True means that the document is a link, False means that the document is an id (default is true)
+  - filename: Document filename, with extension. The WhatsApp client will use an appropriate file type icon based on the extension (optional)
 
 ## Example
 
     iex> WhatsappElixir.Media.send_document("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", "5511999999999")
     {:ok, %{"success" => true}}
 """
-def send_document(document, recipient_id, custom_config \\ [], caption \\ "", link \\ true) do
+def send_document(document, recipient_id, custom_config \\ [], caption \\ "",  link \\ true , filename \\ "") do
   data = %{
     messaging_product: "whatsapp",
     to: recipient_id,
     type: "document",
-    document: (if link, do: %{link: document, caption: caption}, else: %{id: document, caption: caption})
+    document: (if link, do: %{link: document, caption: caption, filename: filename}, else: %{id: document, caption: caption, filename: filename})
   }
 
   Logger.info("Sending document to #{recipient_id}")
