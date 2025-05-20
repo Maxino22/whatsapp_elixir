@@ -1,7 +1,7 @@
 defmodule WhatsappElixir.MixProject do
   use Mix.Project
 
-  @version "0.1.5"
+  @version "0.1.6"
   @repo_url "https://github.com/Maxino22/whatsapp_elixir"
 
   def project do
@@ -25,8 +25,27 @@ defmodule WhatsappElixir.MixProject do
         homepage_url: @repo_url,
         main: "readme",
         extras: ["README.md"],
+        groups_for_modules: [
+          Core: [
+            WhatsappElixir,
+            WhatsappElixir.Config
+          ],
+          Messages: [
+            WhatsappElixir.Messages
+          ],
+          Templates: [
+            WhatsappElixir.Templates
+          ],
+          Media: [
+            WhatsappElixir.Media
+          ]
+        ],
         links: %{
           "GitHub" => @repo_url,
+          "Templates Documentation" => "#{@repo_url}/blob/main/lib/whatsapp_elixir/templates.ex",
+          "Messages Documentation" => "#{@repo_url}/blob/main/lib/whatsapp_elixir/messages.ex",
+          "Media Documentation" => "#{@repo_url}/blob/main/lib/whatsapp_elixir/media.ex",
+          "WhatsApp API Docs" => "https://developers.facebook.com/docs/whatsapp/cloud-api",
           "Sponsor" => "https://github.com/sponsors/Maxino22"
         }
       ]
@@ -37,7 +56,10 @@ defmodule WhatsappElixir.MixProject do
     [
       licenses: ["MIT"],
       links: %{
-        "GitHub" => @repo_url
+        "GitHub" => @repo_url,
+        "Templates" => "#{@repo_url}/blob/main/lib/whatsapp_elixir/templates.ex",
+        "Messages" => "#{@repo_url}/blob/main/lib/whatsapp_elixir/messages.ex",
+        "Documentation" => "https://hexdocs.pm/whatsapp_elixir"
       }
     ]
   end
