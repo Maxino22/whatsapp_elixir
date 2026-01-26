@@ -68,7 +68,7 @@ defmodule WhatsappElixir.HTTP do
       content_type = Multipart.content_type(body, content_type)
       body = Multipart.body_stream(body)
 
-      case Req.post(url, body: body, headers: headers(token, content_type)) do
+      case Req.post(url, body: body, decode_body: false, headers: headers(token, content_type)) do
         {:ok, %Response{status: status, body: body}} when status in 200..299 ->
           {:ok, Jason.decode!(body)}
 
