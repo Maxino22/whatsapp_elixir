@@ -84,7 +84,11 @@ defmodule WhatsappElixir.HTTP do
           {:error, reason}
       end
     else
-      case Req.post(url, body: Jason.encode!(body), headers: headers(token, content_type)) do
+      case Req.post(url,
+             body: Jason.encode!(body),
+             decode_body: false,
+             headers: headers(token, content_type)
+           ) do
         {:ok, %Response{status: status, body: body}} when status in 200..299 ->
           {:ok, Jason.decode!(body)}
 
@@ -143,7 +147,7 @@ defmodule WhatsappElixir.HTTP do
 
     Logger.info("Constructed URL: #{full_url}")
 
-    case Req.get(full_url, headers: headers(token)) do
+    case Req.get(full_url, decode_body: false, headers: headers(token)) do
       {:ok, %Response{status: status, body: body}} when status in 200..299 ->
         {:ok, Jason.decode!(body)}
 
@@ -172,7 +176,7 @@ defmodule WhatsappElixir.HTTP do
 
     Logger.info("Making GET request to URL: #{url}")
 
-    case Req.get(url, headers: full_headers) do
+    case Req.get(url, decode_body: false, headers: full_headers) do
       {:ok, %Response{status: status, body: body, headers: response_headers}}
       when status in 200..299 ->
         content_type = get_content_type(response_headers)
